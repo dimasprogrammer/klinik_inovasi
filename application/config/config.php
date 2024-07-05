@@ -459,19 +459,7 @@ $config['csrf_regenerate'] = TRUE;
 // );
 $config['csrf_exclude_uris'] = [
     '[a-z]+/[a-z]+/listview', '[a-z]+/[a-z]+/index/[a-z]', '[a-z]+/[a-z]+/details', '[a-z]+/[a-z]+/cetak', '[a-z]+/[a-z]+/getdataselect',
-    'manajemen_data/inovasi/listview',
-    'manajemen_data/inovasi/listviewInisiatif',
-    'manajemen_data/inovasi/listviewUjiCoba',
-    'manajemen_data/inovasi/listviewPenerapan',
-    'manajemen_data/indikator_parameter/listview',
-    'master/bentuk_inovasi/listview',
-    'master/tematik/listview',
-    'master/urusan_utama/listview',
-    'master/urusan_lainnya/listview',
-    'master/indikator/listview',
-    'master/indikator_satuan/listview',
-    'manajemen_verifikator/inovasi/listview',
-    'manajemen_verifikator/indikator_parameter/listview',
+    'manajemen_data/bencana/listview',
 ];
 /*
 |--------------------------------------------------------------------------

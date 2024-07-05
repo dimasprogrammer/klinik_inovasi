@@ -13,95 +13,51 @@ class Model_master extends CI_Model
         parent::__construct();
     }
 
-    public function getDataIndikator()
+    // public function getDataJenisBencana()
+    // {
+    //     $this->db->select('id_jenis_bencana,
+    //                        nm_bencana');
+    //     $this->db->from('cx_jenis_bencana');
+    //     $this->db->order_by('id_jenis_bencana', 'ASC');
+    //     // $this->db->where('id_status', 1);
+    //     $query = $this->db->get();
+    //     return $query->result();
+    // }
+
+    public function getDataJenisBencana()
     {
-        $this->db->order_by('id_indikator ASC');
-        $query = $this->db->get('cx_indikator');
-        $ttd[''] = 'Pilih Indikator';
-        if ($query->num_rows() > 0) {
-            foreach ($query->result_array() as $row) {
-                $ttd[$row['id_indikator']] = $row['nm_indikator'];
-            }
-        }
-        return $ttd;
+        $this->db->where('id_status', 1);
+        $this->db->order_by('id_jenis_bencana ASC');
+        $query = $this->db->get('cx_jenis_bencana');
+        return $query->result_array();
     }
 
-
-
-    public function getDataBentukInovasi()
+    public function getDataUserAll()
     {
-        $this->db->order_by('id_bentuk_inovasi ASC');
-        $query = $this->db->get('cx_bentuk_inovasi');
-        $ttd[''] = 'Pilih Bentuk Inovasi';
+        $this->db->where('id_status', 1);
+        $this->db->where_in('xi_sa_users.id_users', array(1, 2));
+        $this->db->order_by('id_users', 'ASC');
+        $query = $this->db->get('xi_sa_users');
+        $dd_users = array();
         if ($query->num_rows() > 0) {
-            foreach ($query->result_array() as $row) {
-                $ttd[$row['id_bentuk_inovasi']] = $row['nm_bentuk'];
+            foreach ($query->result() as $row) {
+                $dd_users[$row->id_users] = $row->fullname;
             }
         }
-        return $ttd;
+        return $dd_users;
     }
 
-    public function getDataTematik()
+    public function getDataInstansi()
     {
-        $this->db->order_by('id_tematik ASC');
-        $query = $this->db->get('cx_tematik');
-        $ttd[''] = 'Pilih Tematik';
+        $this->db->order_by('id_instansi ASC');
+        $query = $this->db->get('cx_instansi_prov');
+        $dd_prov[''] = 'Pilih Provinsi';
         if ($query->num_rows() > 0) {
             foreach ($query->result_array() as $row) {
-                $ttd[$row['id_tematik']] = $row['nm_tematik'];
+                $dd_prov[$row['id_instansi']] = $row['nm_instansi'];
             }
         }
-        return $ttd;
-    }
-
-    public function getDataUrusanUtama()
-    {
-        $this->db->order_by('id_urusan_utama ASC');
-        $query = $this->db->get('cx_urusan_utama');
-        $ttd[''] = 'Pilih Urusan Utama';
-        if ($query->num_rows() > 0) {
-            foreach ($query->result_array() as $row) {
-                $ttd[$row['id_urusan_utama']] = $row['nm_urusan_utama'];
-            }
-        }
-        return $ttd;
-    }
-
-    public function getJenisFile()
-    {
-        $this->db->select('id_category_file,
-                           nm_category');
-        $this->db->from('cx_category_file');
-        $this->db->order_by('id_category_file ', 'ASC');
-        // $this->db->where('id_status', 1);
-        $query = $this->db->get();
-        return $query->result();
-    }
-
-    public function getDataUrusanLainnya()
-    {
-        $this->db->order_by('id_urusan_lainnya ASC');
-        $query = $this->db->get('cx_urusan_lainnya');
-        $ttd[''] = 'Pilih Urusan Lainnya';
-        if ($query->num_rows() > 0) {
-            foreach ($query->result_array() as $row) {
-                $ttd[$row['id_urusan_lainnya']] = $row['nm_urusan_lainnya'];
-            }
-        }
-        return $ttd;
-    }
-
-    public function getDataIndikatorSatuan()
-    {
-        $this->db->order_by('id_indikator_satuan ASC');
-        $query = $this->db->get('cx_indikator_satuan');
-        $ttd[''] = 'Pilih Urusan Lainnya';
-        if ($query->num_rows() > 0) {
-            foreach ($query->result_array() as $row) {
-                $ttd[$row['id_indikator_satuan']] = $row['nm_indikator_satuan'];
-            }
-        }
-        return $ttd;
+        return $dd_prov;
     }
 
     public function getDataProvince()
@@ -120,13 +76,13 @@ class Model_master extends CI_Model
 
     public function getDataRegency()
     {
-        $this->db->where('province_id', '13');
-        $this->db->order_by('id ASC');
-        $query = $this->db->get('wa_regency');
+        // $this->db->where('province_id', '13');
+        $this->db->order_by('id_regency ASC');
+        $query = $this->db->get('wil_regency');
         $dd_reg[''] = 'Pilih Daerah';
         if ($query->num_rows() > 0) {
             foreach ($query->result_array() as $row) {
-                $dd_reg[$row['id']] = ($row['status'] == 1) ? "KAB " . $row['name'] : $row['name'];
+                $dd_reg[$row['id_regency']] = ($row['status'] == 1) ? "KAB " . $row['nm_regency'] : $row['nm_regency'];
             }
         }
         return $dd_reg;
@@ -137,7 +93,7 @@ class Model_master extends CI_Model
         $this->db->where('province_id', $id);
         $this->db->order_by('status ASC');
         $this->db->order_by('name ASC');
-        $query = $this->db->get('wa_regency');
+        $query = $this->db->get('wil_regency');
         return $query->result_array();
     }
 

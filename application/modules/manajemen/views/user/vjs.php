@@ -107,6 +107,8 @@
         $('.progress-title').text('');
         $('.contextual-progress').hide();
         $("#fopd").hide('slow');
+        $('.showreg').hide();
+        $('.showreg2').hide();
     }
     $(document).on('submit', '#formEntry', function(e) {
         e.preventDefault();
@@ -239,82 +241,16 @@
                     $.each(data.message.groupid, function(key, g) {
                         $('input[type="checkbox"][name="groupid[]"]#groupid_' + g).prop('checked', true);
                     });
-                    if ($("#groupid_4").is(':checked') || $("#groupid_6").is(':checked')) {
-                        if (load == 0) {
-                            getOpd();
-                            $("#fopd").show('slow');
-                        } else {
-                            $("#fopd").show();
-                        }
-                    } else {
-                        $("#fopd").hide('slow');
+                    if (data.message.regency != '00.00') {
+                        $('.showreg').show();
+                        $('#regency').select2().val(data.message.regency).trigger("change");
+                        regency = data.message.regency;
                     }
                 }
 
             }
         });
     }
-
-    $("#groupid_4").on('click checked', function() {
-        if ($(this).is(':checked')) {
-            $('#groupid_6').prop('checked', false);
-            $('#opd').select2().val('').trigger("change");
-            if (load == 0) {
-                getOpd();
-            }
-            $("#fopd").show('slow');
-        } else {
-            $("#fopd").hide('slow');
-        }
-    });
-    $("#groupid_6").on('click checked', function() {
-        if ($(this).is(':checked')) {
-            $('#groupid_4').prop('checked', false);
-            $('#opd').select2().val('').trigger("change");
-
-
-            if (load == 0) {
-                getOpd();
-            }
-            $("#fopd").show('slow');
-        } else {
-            $("#fopd").hide('slow');
-        }
-    });
-
-
-    function getOpd() {
-        $.ajax({
-            url: site + '/getOptionOpd',
-            type: "POST",
-            data: {
-                '<?php echo $this->security->get_csrf_token_name(); ?>': $('input[name="' + csrfName + '"]').val()
-            },
-            dataType: "json",
-            beforeSend: function() {
-                $(".loading-simpeg-opd").fadeIn('slow');
-            },
-            success: function(data) {
-                $('input[name="' + csrfName + '"]').val(data.csrfHash);
-                if (data.status == 'RC200') {
-                    $(".loading-simpeg-opd > span").html("Conection success...");
-                    $("#opd").html(data.dataOption);
-                    load = 1;
-                } else {
-                    $("#label_jabatan").html('<span class="text-danger">* Data Tidak Ditemukan</span>');
-                }
-            },
-            error: function(e) {
-                $(".loading-simpeg-opd > span").html("Conection API Simpeg error...");
-            },
-            complete: function() {
-                $('.loading-simpeg-opd').fadeOut('slow');
-                $("#text-opd").fadeIn('slow');
-                $('#opd').select2().val(unit_id).trigger("change");
-            }
-        });
-    }
-
 
     $(document).on('click', '#btnDelete', function(e) {
         e.preventDefault();
@@ -394,6 +330,43 @@
                 })
             }
         })
+    });
+
+    // Handle click on "checked" control
+    $(document).on('change', 'form#formEntry input[type=checkbox]', function(e) {
+        if ($(this).is(':checked')) {
+            if ($(this).data('level') == 2 || $(this).data('level') == 4) {
+                $('.showreg').show();
+                // $('.showreg2').show();
+                $('form#formEntry #instansi').select2().val(instansi).trigger("change");
+            }
+        } else {
+            if ($(this).data('level') == 5) {
+                $('.showreg').hide();
+                $('.showreg2').hide();
+                $('form#formEntry #instansi').select2().val('').trigger("change");
+            }
+        }
+    });
+
+    // Handle click on "checked" control
+    $(document).on('change', 'form#formEntry input[type=checkbox]', function(e) {
+        if ($(this).is(':checked')) {
+            if ($(this).data('level') == 6) {
+                $('.showreg').show();
+                $('.showreg2').show();
+                // $('.showreg2').show();
+                $('form#formEntry #instansi').select2().val(instansi).trigger("change");
+                $('form#formEntry #regency').select2().val(regency).trigger("change");
+            }
+        } else {
+            if ($(this).data('level') == 1 || $(this).data('level') == 2 || $(this).data('level') == 3) {
+                $('.showreg').hide();
+                $('.showreg2').hide();
+                $('form#formEntry #instansi').select2().val('').trigger("change");
+                $('form#formEntry #regency').select2().val('').trigger("change");
+            }
+        }
     });
 
 

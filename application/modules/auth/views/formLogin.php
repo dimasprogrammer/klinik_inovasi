@@ -27,14 +27,17 @@
     <div class="app-container">
       <div class="app-login">
         <div class="app-screen">
-          <div class="app-screen-left"></div>
+          <div class="app-screen-left">
+            <!-- <img style="width: 100%; height:auto;" src="<?php echo base_url('assets/img/disaster.jpg');
+                                                              ?>" alt=""> -->
+          </div>
           <div class="app-screen-right">
             <div class="app-screen-form">
               <div class="app-screen-header">
                 <?php //echo $this->asset->image((isset($appIcon) ? $appIcon: ''), '', array('style'=>'width:40%;', 'alt'=>(isset($appName) ? 'Logo '.$appName : 'Logo Aplikasi'))); 
                 ?>
-                <h3 class="text-primary font-weight-bold">Selamat Datang Klinik Inovasi Online</h3>
-                <h5 class="mt-2 text-black font-weight-bold font-smaller">Silahkan login </h5>
+                <h1 class="text-danger font-weight-bold"><?= isset($appName) ? 'APLIKASI ' . $appName : ''; ?></h1>
+                <h5 class="mt-2 text-black font-weight-bold font-smaller">Masukkan username dan password</h5>
               </div>
               <div class="app-screen-body">
                 <!-- Material form login -->
@@ -54,25 +57,22 @@
                   <input type="password" class="form-control" name="password" id="password" value="" required>
                   <div class="invalid-feedback">Password harus diisi</div>
                 </div>
-                <!-- <div class="row d-flex align-items-center">
+                <div class="row d-flex align-items-center">
+                  <!-- Remember me -->
                   <div class="col-md-6 col-6 text-left">
                     <div class="custom-control custom-checkbox">
                       <input type="checkbox" class="custom-control-input" name="rememberme" id="rememberme">
                       <label class="custom-control-label" for="rememberme">Remember me</label>
                     </div>
                   </div>
+                  <!-- Forgot password -->
                   <div class="col-md-6 col-6">
                     <a href="javascript:;" class="d-flex justify-content-end">Forgot password ?</a>
                   </div>
-                </div> -->
+                </div>
                 <!-- Sign in button -->
-                <button class="btn btn-primary btn-block my-4" type="submit" name="submit" id="submit">Sign In</button>
+                <button class="btn btn-danger btn-block my-4" type="submit" name="submit" id="submit">Sign In</button>
                 <?php echo form_close(); ?>
-                <!-- Don't have Account -->
-                <!-- copyright -->
-                <?php $year = isset($appYear) ? $appYear : date('Y'); ?>
-                <p class="font-small grey-text app-contact"><?= ' TIM IT Programmer Diskominfotik &copy; ' . (($year == date('Y')) ? $year : $year . ' - ' . date('Y')); ?></p>
-                <!-- Material form login -->
               </div>
             </div>
           </div>

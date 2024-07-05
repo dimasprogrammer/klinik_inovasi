@@ -32,16 +32,16 @@ body {
 
 .app-screen-left {
 	height: 100%;
-	background: url('../../img/2201_w037_n003_145a_p1_145.jpg') no-repeat left 110%;
+	background: url('../../img/disaster3.jpg');
 	position: fixed;
 	background-size: cover;
-	width: 73%;
+	width: 68%;
 	border-right: 1px solid #eee;
 }
 
 .app-screen-right {
-	margin-left: 70%;
-	width: 30%;
+	margin-left: 65%;
+	width: 35%;
 	min-height: 100%;
 	margin-top: auto;
 	margin-bottom: auto;

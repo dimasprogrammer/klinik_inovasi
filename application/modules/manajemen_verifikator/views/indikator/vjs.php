@@ -734,7 +734,7 @@
                         })
                     } else {
                         $('#frmEntryCatatan').waitMe('hide');
-                        $('#modalEntryForm').modal('toggle');
+                        $('#modalEntryFormCatatan').modal('toggle');
                         swalAlert.fire({
                             title: 'Berhasil Simpan',
                             text: data.message,

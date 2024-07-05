@@ -1704,6 +1704,10 @@ ul.stepper li.warning a .circle {
   background: linear-gradient(40deg, #45cafc, #303f9f) !important;
 }
 
+.magenta-gradient {
+  background: linear-gradient(40deg, #e4626d, #df093d) !important;
+}
+
 .purple-gradient-rgba {
   background: linear-gradient(40deg,
       rgba(255, 110, 196, 0.9),
@@ -15702,6 +15706,10 @@ span[data-jarallax-element] {
 }
 
 .sn-bg-5 {
+  background-image: url(https://www.wallpapertip.com/wmimgs/203-2038711_colorful-space-wallpaper.jpg);
+}
+
+.sn-bg-6 {
   background-image: url(https://www.wallpapertip.com/wmimgs/203-2038711_colorful-space-wallpaper.jpg);
 }
 

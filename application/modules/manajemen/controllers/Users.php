@@ -53,8 +53,8 @@ class Users extends SLP_Controller
         $this->session_info['data_level']  = $this->muser->getDataLevelAkses();
         $this->session_info['data_group']  = $this->muser->getDataListGroup();
         $this->session_info['group_user']  = $this->muser->getDataGroup();
-        $this->session_info['data_opd']    = "";
-        $this->session_info['data_opd_operator']    = $this->encryption->encrypt('3');
+        $this->session_info['regency']      = $this->mmas->getDataRegency();
+        $this->session_info['instansi']      = $this->mmas->getDataInstansi();
         $this->template->build($this->_vwName . '/vpage', $this->session_info);
     }
 

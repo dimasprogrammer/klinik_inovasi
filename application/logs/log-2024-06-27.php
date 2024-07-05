@@ -49,3 +49,4 @@ ERROR - 2024-06-27 11:07:46 --> Severity: Warning --> Undefined array key "thumb
 ERROR - 2024-06-27 11:07:46 --> Severity: Warning --> Undefined property: stdClass::$wajib_diisi D:\APPLICATION\PHP\PHP8\2024\2024_kioonline\application\modules\manajemen_verifikator\views\indikator\vindikator.php 159
 ERROR - 2024-06-27 11:08:53 --> Severity: Warning --> Undefined array key "thumbnail" D:\APPLICATION\PHP\PHP8\2024\2024_kioonline\application\modules\manajemen_verifikator\views\indikator\vindikator.php 147
 ERROR - 2024-06-27 11:10:08 --> Severity: Warning --> Undefined array key "thumbnail" D:\APPLICATION\PHP\PHP8\2024\2024_kioonline\application\modules\manajemen_verifikator\views\indikator\vindikator.php 147
+ERROR - 2024-06-27 15:10:28 --> Severity: Warning --> Undefined variable $base64 D:\APPLICATION\PHP\PHP8\2024\2024_kioonline\application\modules\manajemen_data\views\inovasi\vprint.php 110

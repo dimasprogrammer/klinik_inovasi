@@ -50,7 +50,7 @@
             <a href="" class="white-text mx-3">TABEL INDIKATOR SATUAN INOVASI DAERAH</a>
 
             <div>
-                <a type="button" class="btn btn-outline-white btn-rounded btn-sm px-2" href="<?php echo site_url() . 'manajemen_data/inovasi/'; ?>"> <i class="fas fa-angle-double-left mt-0"></i> KEMBALI </a>
+                <a type="button" class="btn btn-outline-white btn-rounded btn-sm px-2" href="<?php echo site_url() . 'manajemen_verifikator/inovasi/'; ?>"> <i class="fas fa-angle-double-left mt-0"></i> KEMBALI </a>
                 <a type="button" class="btn btn-outline-white btn-rounded btn-sm px-2" onclick="window.location.reload(true);"> <i class="fab fa-foursquare"></i> REFRESH </a>
             </div>
 

@@ -4,18 +4,19 @@
     <div class="row" id="formParent">
         <div class="col-xl-12 col-md-12 mb-xl-0 mb-4">
             <div class="card card-cascade narrower z-depth-1">
-                <div class="view view-cascade gradient-card-header blue-gradient-rgba narrower py-1 mx-4 d-flex justify-content-between align-items-center">
+                <div class="view view-cascade gradient-card-header magenta-gradient narrower py-1 mx-4 d-flex justify-content-between align-items-center">
                     <h6 class="white-text font-weight-normal mt-2">
                         <i class="fas fa-table"></i>
                         List Data User
                     </h6>
                     <div class="clearfix">
-                        <a type="button" href="<?php echo site_url(isset($siteUri) ? $siteUri : '#'); ?>" class="btn btn-white btn-sm btn-rounded waves-effect waves-light px-3 py-2 font-weight-bold" name="button"><i class="fas fa-sync-alt"></i> Refresh Data</a>
-                        <a href="javascript:void(0);" class="btnFilter btn btn-secondary btn-rounded btn-sm text-right text-decoration-none text-black">
+                        <a type="button" href="<?php echo site_url(isset($siteUri) ? $siteUri : '#'); ?>" class="btn btn-white btn-rounded waves-effect waves-light px-2 py-2 font-weight-bold" name="button"><i class="fas fa-sync-alt"></i> Refresh Data</a>
+                        <button type="button" class="btn btn-blue btn-rounded waves-effect waves-light px-3 py-2 font-weight-bold" id="btnAdd"><i class="fas fa-plus-circle"></i> Tambah Baru</button>
+
+                        <a href="javascript:void(0);" class="btnFilter btn btn-white btn-rounded waves-effect waves-light px-3 py-2 font-weight-bold">
                             <i class="fas fa-sliders-h"></i> Filter Data
                         </a>
-                        <button type="button" class="btn btn-success btn-rounded btn-sm waves-effect waves-light px-3 py-2 font-weight-bold" id="btnAdd"><i class="fas fa-plus-circle"></i> Tambah Baru</button>
-                        <button type="button" class="btn btn-danger btn-rounded btn-sm waves-effect waves-light px-3 py-2 font-weight-bold" id="btnDelete" style="display:none;"><i class="fa fa-trash-alt"></i> Delete User</button>
+                        <button type="button" class="btn btn-white btn-rounded waves-effect waves-light px-3 py-2 font-weight-bold" name="printExcelAll" id="printExcelAll"><i class="far fa-file-excel"></i> cetak excel </button>
                     </div>
                 </div>
                 <div class="card-body mb-0">
@@ -71,11 +72,12 @@
                                         </div>
                                     </th>
                                     <th width="3%" class="font-weight-bold">#</th>
-                                    <th width="30%" class="font-weight-bold">Pengguna</th>
-                                    <th width="20%" class="font-weight-bold">Group</th>
-                                    <th width="6%" class="font-weight-bold">Blokir</th>
+                                    <th width="30%" class="font-weight-bold">Jenis Bencana</th>
+                                    <th width="30%" class="font-weight-bold">Tanggal Bencana</th>
+                                    <th width="30%" class="font-weight-bold">Jam Bencana</th>
+                                    <th width="20%" class="font-weight-bold">Create Date</th>
                                     <th width="10%" class="font-weight-bold">Status</th>
-                                    <th width="3%" class="font-weight-bold">Edit</th>
+                                    <th width="3%" class="font-weight-bold">Action</th>
                                 </tr>
                             </thead>
                         </table>
@@ -85,66 +87,31 @@
         </div>
     </div>
 </section>
-<?php echo form_open(site_url(isset($siteUri) ? $siteUri . '/create' : ''), array('id' => 'formEntry', 'class=' => 'needs-validated', 'novalidate' => '')); ?>
+
+<!------------------------------------ FORM ENTRI DATA BENCANA -------------------------------------------->
 <div class="modal fade" id="modalEntryForm" tabindex="-1" role="dialog" aria-labelledby="modalEntryLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" id="frmEntry">
         <div class="modal-content">
-            <div class="modal-header aqua-gradient-rgba">
-                <h4 class="modal-title heading lead white-text font-weight-bold"><i class="fas fa-edit"></i> Form Entri Data User</h4>
+            <div class="modal-header blue-gradient-rgba">
+                <h4 class="modal-title heading lead white-text font-weight-bold"><i class="fas fa-edit"></i> Form Entri Data bencana</h4>
                 <button type="button" class="close btnClose" aria-label="Close">
                     <span aria-hidden="true" class="white-text">&times;</span>
                 </button>
             </div>
-            <div class="modal-body p-4">
+            <?php echo form_open_multipart(site_url(isset($siteUri) ? $siteUri . '/create' : ''), array('id' => 'formEntry', 'class=' => 'needs-validated', 'novalidate' => '')); ?>
+            <div class="modal-body">
                 <div id="errEntry"></div>
                 <?php echo form_hidden('tokenId', ''); ?>
+
                 <div class="form-row mb-3">
-                    <div class="col-12 col-md-6 required">
-                        <label for="fullname" class="control-label font-weight-bolder">Nama Lengkap <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="fullname" id="fullname" placeholder="Nama Lengkap" value="<?php echo $this->input->post('fullname', TRUE); ?>" required>
-                        <div class="invalid-feedback"></div>
-                    </div>
-                    <div class="col-12 col-md-6 required">
-                        <label for="username" class="control-label font-weight-bolder">Username <span class="grey-text" style="font-size: 80%;">(min 6 karakter)</span><span class="lblPass text-danger">*</span></label>
-                        <div class="input-group required">
-                            <input type="text" class="form-control" name="username" id="username" placeholder="Username" value="<?php echo $this->input->post('username', TRUE); ?>" required>
-                            <div class="invalid-feedback mt-3"></div>
-                        </div>
-                        <!-- <div class="valid-username mt-1" style="font-size:80%;"></div> -->
-                    </div>
-                </div>
-                <div class="form-row mb-3 mt-2">
-                    <div class="col-12 col-md-6">
-                        <label for="password" class="control-label font-weight-bolder">Password <span class="grey-text" style="font-size: 80%;">(min 8 karakter)</span><span class="lblPass text-danger">*</span></label>
-                        <div class="input-group required">
-                            <input type="password" class="form-control" name="password" id="password" placeholder="Password" value="<?php echo $this->input->post('password', TRUE); ?>" required>
-                            <div class="input-group-append">
-                                <span class="input-group-text showPass"><i class="fa fa-eye"></i></span>
-                            </div>
-                            <div class="invalid-feedback"></div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <label for="conf_password" class="control-label font-weight-bolder">Konfirmasi Password <span class="lblPass text-danger">*</span></label>
-                        <div class="input-group required">
-                            <input type="password" class="form-control" name="conf_password" id="conf_password" placeholder="Konfirmasi Password" value="<?php echo $this->input->post('conf_password', TRUE); ?>" required>
-                            <div class="input-group-append">
-                                <span class="input-group-text showPass"><i class="fa fa-eye"></i></span>
-                            </div>
-                            <div class="invalid-feedback"></div>
-                        </div>
-                        <div class="valid-password mt-1" style="font-size:80%;"></div>
-                    </div>
-                </div>
-                <div class="form-row mb-3">
-                    <label for="groupid" class="control-label col-12 col-md-12 font-weight-bolder">Group User <span class="text-danger">*</span></label>
+                    <label for="jenis_bencana" class="control-label font-weight-bold">Jenis Bencana<span class="text-danger">*</span></label>
                     <div class="col-12 col-md-12">
                         <div class="row">
-                            <?php foreach ((isset($data_group) ? $data_group : array()) as $key => $dg) {
-                                echo '<div class="col-4">';
+                            <?php foreach ((isset($jenis_bencana) ? $jenis_bencana : array()) as $key => $dg) {
+                                echo '<div class="col-3">';
                                 echo '<div class="custom-control custom-checkbox required">';
-                                echo '<input type="checkbox" class="custom-control-input" data-level="' . $dg['id_level_akses'] . '" name="groupid[]" id="groupid_' . $dg['id_group'] . '" value="' . $this->encryption->encrypt($dg['id_group']) . '" ' . set_checkbox('groupid[]', $this->encryption->encrypt($dg['id_group'])) . ' required>';
-                                echo '<label class="custom-control-label" for="groupid_' . $dg['id_group'] . '">' . $dg['nama_group'] . '</label>';
+                                echo '<input type="checkbox" class="custom-control-input level" name="groupid[]" id="groupid_' . $dg['id_jenis_bencana'] . '" value="' . $this->encryption->encrypt($dg['id_jenis_bencana']) . '" ' . set_checkbox('groupid[]', $this->encryption->encrypt($dg['id_jenis_bencana'])) . ' required>';
+                                echo '<label class="custom-control-label" for="groupid_' . $dg['id_jenis_bencana'] . '">' . $dg['nm_bencana'] . '</label>';
                                 echo '<div class="invalid-feedback"></div>';
                                 echo '</div>';
                                 echo '</div>';
@@ -152,36 +119,70 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="form-row mb-3">
-                    <div class="col-12 col-md-6 showreg required" style="display: none;">
-                        <label for="id_instansi" class="control-label font-weight-bolder">OPD <span class="text-danger">*</span></label>
-                        <?php echo form_dropdown('id_instansi', isset($instansi) ? $instansi : array('' => 'Pilih Data'), $this->input->post('id_instansi', TRUE), 'class="form-control select-all" id="id_instansi" style="width:100%" required=""'); ?>
+                    <div class="col-12 col-md-4 required">
+                        <label for="nama_bencana" class="control-label font-weight-bold"> Nama Bencana <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" name="nama_bencana" id="nama_bencana" placeholder="Nama Bencana" required>
                         <div class="invalid-feedback"></div>
                     </div>
-                    <div class="col-12 col-md-6 showreg2 required" style="display: none;">
-                        <label for="id_regency" class="control-label font-weight-bolder">Kabupaten/Kota <span class="text-danger">*</span></label>
-                        <?php echo form_dropdown('id_regency', isset($regency) ? $regency : array('' => 'Pilih Data'), $this->input->post('id_regency', TRUE), 'class="form-control select-all" id="id_regency" style="width:100%" required=""'); ?>
+                    <div class="col-12 col-md-4 required">
+                        <label for="daterange" class="control-label font-weight-bold">Tanggal Tanggap Bencana<span class="text-danger">*</span></label>
+                        <input type="text" placeholder="Select date" class="form-control" id="daterange" name="daterange">
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="col-12 col-md-4 required">
+                        <label for="jam_bencana" class="control-label font-weight-bold">Jam Bencana <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control timepicker" placeholder="Select time" name="jam_bencana" id="jam_bencana" value="<?php echo $this->input->post('jam_bencana', TRUE); ?>" required>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                </div>
+                <h6 class="control-label font-weight-bold">TITIK KOORDINAT LOKASI BENCANA</h6>
+                <div id="map-canvas" class="mb-3"></div>
+                <div class="form-row mb-3">
+                    <div class="col-12 col-md-6 required">
+                        <input type="text" class="form-control" name="latitude" id="latitude" placeholder="Latitude" value="<?= $this->input->post('latitude', TRUE); ?>" readonly required>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="col-12 col-md-6 required">
+                        <input type="text" class="form-control" name="longitude" id="longitude" placeholder="Longitude" value="<?= $this->input->post('longitude', TRUE); ?>" readonly required>
                         <div class="invalid-feedback"></div>
                     </div>
                 </div>
                 <div class="form-row mb-3">
-                    <div class="col-12 col-md-4 required">
-                        <label for="blokir" class="control-label font-weight-bolder">Blokir <span class="text-danger">*</span></label>
-                        <?php echo form_dropdown('blokir', blokir(), $this->input->post('blokir', TRUE), 'class="form-control select-data" id="blokir" style="width:100%" required=""'); ?>
+                    <div class="col-12 col-md-12 required">
+                        <input type="text" class="form-control" name="address" id="address" placeholder="address" value="<?= $this->input->post('address', TRUE); ?>" required>
                         <div class="invalid-feedback"></div>
                     </div>
-                    <div class="col-12 col-md-4 required">
-                        <label for="status" class="control-label font-weight-bolder">Status <span class="text-danger">*</span></label>
-                        <?php echo form_dropdown('status', status(), $this->input->post('status', TRUE), 'class="form-control select-data" id="status" style="width:100%" required=""'); ?>
+                </div>
+                <div class="form-row mb-3">
+                    <div class="col-12 col-md-6 required">
+                        <label for="nama_file" class="control-label font-weight-bold">Foto Bencana <span class="text-danger">*</span></label>
+                        <div class="custom-file">
+                            <input type="file" class="customFile" name="nama_file" id="nama_file" lang="in" value="<?= $this->input->post('nama_file', TRUE); ?>">
+                            <label class="custom-file-label" for="nama_file"> </i>Silahkan Pilih File</label>
+                        </div>
                         <div class="invalid-feedback"></div>
                     </div>
+                    <div class="col-12 col-md-6 required">
+                        <label for="fullname" class="control-label font-weight-bold">OPD Penanggung Jawab <span class="text-danger">*</span></label>
+                        <?php echo form_multiselect('fullname[]', isset($data_user) ? $data_user : array('' => 'OPD Penanggung Jawab'), $this->input->post('fullname[]', TRUE), 'class="form-control select-all" data-placeholder="Pilih Data"  style="width:100%" required=""'); ?>
+                        <div class="invalid-feedback"></div>
+                    </div>
+
+                </div>
+                <div class="alert alert-danger">
+                    Ukuran dokumen yang diupload maksimal 2 Mb. Format dokumen yang diupload harus pdf/ppt</div>
+                <div class="blockquote-footer">
+                    <span><b>NB:</b> Untuk kolom anggaran dan profil hanya optional</span>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-blue-grey waves-effect waves-light px-3 py-2 font-weight-bold btnClose"><i class="fas fa-times"></i> Close</button>
                 <button type="submit" class="btn btn-primary waves-effect waves-light px-3 py-2 font-weight-bold" name="save" id="save"><i class="fas fa-check"></i> Submit</button>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<?php echo form_close(); ?>
+            <?php echo form_close(); ?>
+        </div>
+    </div>
+</div>
+<!------------------------------------ FORM ENTRI DATA BENCANA -------------------------------------------->

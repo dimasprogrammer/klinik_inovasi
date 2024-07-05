@@ -29,10 +29,6 @@ class Home extends SLP_Controller
         $this->session_info['data_pembayaran']   = "";
         // $this->session_info['bulan']   = bulan(date('m', mktime(0,0,0,date('m')-2)));
         // $this->session_info['tahun']   = date('Y', mktime(0,0,0,date('m')-2));
-        $this->session_info['total']        = $this->modelu->getInovasiYangDilaporkan();
-        $this->session_info['total_kirim']  = $this->modelu->getInovasiYangDikirim();
-        $this->session_info['skor_inovasi'] = $this->modelu->getInovasiTotalSkor();
-        // $this->session_info['total_bobot'] = $this->modelu->getTotalBobotByIdInovasi();
         $this->template->build('vpage', $this->session_info);
     }
 }
